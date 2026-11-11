@@ -167,4 +167,5 @@ def main():
     weekly_report(week, tariff, target)
 
 
-main()
+if __name__ == "__main__":
+    main()
