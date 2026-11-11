@@ -1,26 +1,14 @@
 # Workshop Energy Cost Estimator
-
-> A Python command-line program that estimates the electricity use and running cost of workshop machines over a five-day working week (Monday to Friday).
-
-**Author:** JOSEPH IDEBA, ND2 Mechatronics Engineering, YABATECH  
-**Language:** Python 3
-**Main file:** `JOSEPH_IDEBA_WORKSHOP_ESTIMATOR_PROJECT.py`
-
 ---
 
 ## Table of Contents
 
 1. [What It Does](#what-it-does)
-2. [Features](#features)
-3. [How To Run It](#how-to-run-it)
-4. [How To Use It](#how-to-use-it)
-5. [How It Works](#how-it-works)
-6. [Sample Output](#sample-output)
-7. [My Own Twist](#my-own-twist)
-8. [Testing](#testing)
-9. [Future Improvements](#future-improvements)
-10. [What I Learned](#what-i-learned)
-11. [Author](#author)
+2. [How To Run It](#how-to-run-it)
+3. [Sample Output](#sample-output)
+4. [My Own Twist](#my-own-twist)
+5. [What I Learned](#what-i-learned)
+6. [Author](#author)
 
 ---
 
@@ -92,17 +80,6 @@ def record_day(day, tariff, target, previous_machines):
     return machines
 ```
 
-## Features
-
-| Feature | Description |
-|---|---|
-| Machine entry | Record any number of machines per day (name, watts, hours) |
-| Energy calculation | `kWh = (watts × hours) ÷ 1000` |
-| Cost estimate | Daily and monthly cost (30-day month) per machine |
-| Daily target | Warning at 80% of the target, alarm at 100% |
-| `same` shortcut | Reuse the previous day's machines without typing them again |
-| Input checking | Rejects text, zero/negative numbers, and more than 24 hours |
-| Weekly report | Per-day totals, weekly cost, target comparison, highest-usage day and machine |
 
 ## How To Run It
 
@@ -116,43 +93,6 @@ python3 JOSEPH_IDEBA_WORKSHOP_ESTIMATOR_PROJECT.py
 
 No extra libraries are needed.
 
-## How To Use It
-
-1. Enter your electricity tariff (NGN per kWh).
-2. Enter your daily energy target in kWh.
-3. For each day, Monday to Friday:
-   - type a machine name, then its power rating (watts) and hours used,
-   - repeat for each machine,
-   - type `same` (from Tuesday on) to copy the previous day's machines,
-   - type `done` to finish the day.
-4. Read the weekly report printed at the end.
-
-## How It Works
-
-The program is split into small functions:
-
-| Function | Purpose |
-|---|---|
-| `get_number(prompt, max_value)` | Keeps asking until the user types a valid number greater than 0 (and not above `max_value`) |
-| `calc_kwh(watts, hours)` | Returns energy in kWh |
-| `check_target(day_total, target)` | Returns `"reached"`, `"near"` (80% or more) or `"ok"` |
-| `record_day(day, tariff, target, previous_machines)` | Collects one day's machines and shows running totals, warnings and alarms |
-| `weekly_report(week, tariff, daily_target)` | Prints the Monday–Friday summary |
-| `main()` | Asks for the tariff and target, loops through the week, then prints the report |
-
-Settings you can change at the top of the file:
-
-```python
-WORK_DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-DAYS_IN_MONTH = 30   # days used to estimate monthly energy
-CURRENCY = "NGN"     # currency label shown in the output
-```
-
-Each machine is stored as a dictionary:
-
-```python
-{"name": "Welding machine", "watts": 3000, "hours": 4, "kwh": 12.0}
-```
 
 ## Sample Output
 
@@ -217,33 +157,11 @@ Biggest single entry : Welding machine on Monday (12.00 kWh)
 
 ## My Own Twist
 
-<!-- Describe what you added beyond the basic brief. Suggested points from the code: -->
 
 - **Daily target alarm:** the user sets a daily kWh limit. The program warns once at 80% and sounds an alarm (`\a`) once the limit is reached.
 - **`same` shortcut:** copies the previous day's machines, so a workshop with the same routine doesn't have to type everything five times.
 - **Weekly insights:** the report names the highest-usage day, the machine that used the most energy over the week, and the biggest single entry.
 
-_Why I added this:_ _(write 1–2 sentences here)_
-
-## Testing
-
-| Test | Input | Expected result | Passed? |
-|---|---|---|---|
-| Text instead of a number | `abc` for watts | "Invalid input" message, asks again | ☐ |
-| Zero or negative value | `0` or `-5` | "must be greater than 0", asks again | ☐ |
-| Too many hours | `30` hours | "cannot be more than 24", asks again | ☐ |
-| Empty machine name | (press Enter) | "name cannot be empty" | ☐ |
-| `same` on Monday | `same` | "'same' only works ... after day 1" | ☐ |
-| Reach 80% of target | 16 kWh of 20 | Warning shown once | ☐ |
-| Reach target | 20+ kWh of 20 | Alarm shown once | ☐ |
-| No machines all week | `done` every day | "No machines were recorded this week." | ☐ |
-
-## Future Improvements
-
-- [ ] Save the weekly report to a `.txt` or `.csv` file
-- [ ] Let the user choose the number of working days
-- [ ] Compare this week with last week
-- [ ] Add a simple chart of daily usage
 
 ## What I Learned
 
